@@ -2,8 +2,8 @@
 VERSION = 6
 PATCHLEVEL = 10
 SUBLEVEL = 1
-EXTRAVERSION =Vasco
-NAME = Baby Opossum Posse
+EXTRAVERSION =-Vasco
+NAME = Vasco da Gama
 
 # *DOCUMENTATION*
 # To see a list of typical targets execute "make help"
