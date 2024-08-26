@@ -1,18 +1,47 @@
-Linux kernel
-============
+# How to use Vasco Kernel
 
-There are several guides for kernel developers and users. These guides can
-be rendered in a number of formats, like HTML and PDF. Please read
-Documentation/admin-guide/README.rst first.
+## Step 1 - Install build deps 
 
-In order to build the documentation, use ``make htmldocs`` or
-``make pdfdocs``.  The formatted documentation can also be read online at:
+```bash
+sudo apt update
+sudo apt install build-essential libncurses5-dev bison flex gettext git libssl-dev bc curl
+sudo apt intall gcc make ncurses-devel bison flex gettext git openssl-devel bc
+```
 
-    https://www.kernel.org/doc/html/latest/
+## Step 2 - Build and install
 
-There are various text files in the Documentation/ subdirectory,
-several of them using the reStructuredText markup notation.
+```bash
+make -j$(nproc)
+```
 
-Please read the Documentation/process/changes.rst file, as it contains the
-requirements for building and running the kernel, and information about
-the problems which may result by upgrading your kernel.
+```bash
+make modules -j$(nproc)
+```
+
+
+```bash
+sudo make modules_install
+```
+
+```bash
+sudo make install
+```
+
+# Manual install
+
+1. Put the compiled kernel in `/boot`. Any like `/boot/vmlinuz-vasco`
+
+2. Generate the initial ram file, you can use tools like `initramfs-tool`.
+
+```bash 
+cd /boot && sudo update-initramfs -c -k vmlinuz-vasco
+```
+
+3. Update your boot manager (grub, systemd-boot or any other)
+
+___
+
+# Insuficient memory <span style="color:red;">error</span> at `initramfs` (**TIP**)
+
+This tip can be util for you.
+Update the file `/etc/initramfs-tools/initramfs.conf`. Change the line `MODULES=most` to `MODULES=deps`, this will make the initramfs include just the modules that are direct dependencies, then you can try install the kernel again, or just generate other initramfs file.
